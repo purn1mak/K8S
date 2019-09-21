@@ -1,5 +1,5 @@
 ## To allow kubelet to create CSR
-## https://ansilh.com/17-tls_bootstrapping/02-bootstrapping-with-token/
+
 ```
 cat <<EOF | kubectl create -f -
 kind: ClusterRoleBinding
@@ -70,8 +70,8 @@ stringData:
   description: "The default bootstrap token."
 
   # Token ID and secret. Required.
-  token-id: 80a6ee
-  token-secret: fd219151288b08d8
+  token-id: 07401b
+  token-secret: f395accd246ae52d
 
   # Expiration. Optional.
   expiration: 2019-12-05T12:00:00Z
@@ -134,7 +134,7 @@ kubectl config set-cluster bootstrap \
 ```
 kubectl config set-credentials kubelet-bootstrap \
   --kubeconfig=bootstrap-kubeconfig \
-  --token=80a6ee.fd219151288b08d8
+  --token=07401b.f395accd246ae52d
 ```
 
 ##
