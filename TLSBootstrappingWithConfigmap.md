@@ -1,5 +1,5 @@
-##To allow kubelet to create CSR
-##https://ansilh.com/17-tls_bootstrapping/02-bootstrapping-with-token/
+## To allow kubelet to create CSR
+## https://ansilh.com/17-tls_bootstrapping/02-bootstrapping-with-token/
 ```
 cat <<EOF | kubectl create -f -
 kind: ClusterRoleBinding
@@ -17,7 +17,7 @@ roleRef:
 EOF
 ```
 
-##CSR auto signing for bootstrapper
+## CSR auto signing for bootstrapper
 ```
 cat <<EOF | kubectl create -f -
 kind: ClusterRoleBinding
@@ -35,7 +35,7 @@ roleRef:
 EOF
 ```
 
-##Certificates self renewal
+## Certificates self renewal
 ```
 cat <<EOF | kubectl create -f -
 kind: ClusterRoleBinding
@@ -54,10 +54,9 @@ EOF
 ```
 
 
-##bootstrap-token
+## bootstrap-token
 ```
-&&&&&&&&&&&&&&&
-apiVersion: v1
+cat <<EOF | tee /etc/systemd/system/bootstrap-token.yaml
 kind: Secret
 metadata:
   # Name MUST be of form "bootstrap-token-<token id>"
@@ -88,7 +87,7 @@ stringData:
 kubectl create -f bootstrap-token.yaml
 ```
 
-##Get Cluster-Info
+## Get Cluster-Info
 ```
 kubectl cluster-info
 ```
@@ -116,13 +115,13 @@ kubectl -n kube-public create configmap cluster-info \
 kubectl -n kube-public get configmap cluster-info -o yaml
 ```
 
-##RBAC to allow anonymous users to access the cluster-info ConfigMap
+## RBAC to allow anonymous users to access the cluster-info ConfigMap
 ```
 kubectl create role anonymous-for-cluster-info --resource=configmaps --resource-name=cluster-info --namespace=kube-public --verb=get,list,watch
 kubectl create rolebinding anonymous-for-cluster-info-binding --role=anonymous-for-cluster-info --user=system:anonymous --namespace=kube-public  
 ```
 
-##Create bootstrap-kubeconfig for worker nodes. Run this command in Master
+## Create bootstrap-kubeconfig for worker nodes. Run this command in Master
 ```
 kubectl config set-cluster bootstrap \
   --kubeconfig=bootstrap-kubeconfig \
@@ -152,7 +151,7 @@ kubectl config --kubeconfig=bootstrap-kubeconfig use-context bootstrap
 ```
 
 
-####Copy the bootstrap-kubeconfig to worker node and then execute below steps from worker node.
+## Copy the bootstrap-kubeconfig to worker node and then execute below steps from worker node.
 ```
 scp -rp bootstrap-kubeconfig root@node03:~/bootstrap-kubeconfig
 ```
