@@ -57,6 +57,7 @@ EOF
 ## bootstrap-token
 ```
 cat <<EOF | tee /etc/systemd/system/bootstrap-token.yaml
+apiVersion: v1
 kind: Secret
 metadata:
   # Name MUST be of form "bootstrap-token-<token id>"
