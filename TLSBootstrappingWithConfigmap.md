@@ -85,7 +85,7 @@ stringData:
   auth-extra-groups: system:bootstrappers:node03,system:bootstrappers:ingress
 ```
 ```
-kubectl create -f bootstrap-token.yaml
+kubectl create -f /etc/systemd/system/bootstrap-token.yaml
 ```
 
 ## Get Cluster-Info
